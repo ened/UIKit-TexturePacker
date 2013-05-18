@@ -32,9 +32,25 @@
 
 @synthesize animationLayer;
 
++ (id)layerWithSprites:(NSDictionary *)sprites
+{
+    return [[CAWSpriteLayer alloc] initWithSprites:sprites];
+}
+
 + (id) layerWithSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img
 {
     return [[CAWSpriteLayer alloc] initWithSpriteData:spriteData andImage:img];
+}
+
+- (id) initWithSprites:(NSDictionary*)sprites
+{
+    if ( self = [super init] )
+    {
+        animationLayer = [CAWSpriteCoreLayer layer];
+        [self addSublayer:animationLayer];
+        [animationLayer setSprites:sprites];
+    }
+    return self;
 }
 
 - (id) initWithSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img;

@@ -27,11 +27,16 @@
 
 #import "CAWSpriteCoreLayer.h"
 
+@interface CAWSpriteCoreLayer()
+@property (nonatomic, strong) NSDictionary* data;
+@property (nonatomic, strong) NSDictionary* atlasSizes;
+@end
+
 @implementation CAWSpriteCoreLayer
 
-@synthesize spriteData;
+//@synthesize spriteData;
 @synthesize frameIndex;
-@synthesize atlasSize;
+//@synthesize atlasSize;
 @synthesize numFrames;
 @synthesize showLastFrame;
 @synthesize subLayer;
@@ -55,17 +60,34 @@
     return [key isEqualToString:@"frameIndex"];
 }
 
+- (void)setSprites:(NSDictionary *)sprites {
+    self.data = sprites;
+}
+
 - (void) setSpriteData:(NSDictionary *)spriteData_ andImage:(UIImage *)img_
 {
-    self.contents = (id)img_.CGImage;
-    self.spriteData = spriteData_;
+    NSLog(@"woof");
+//    self.contents = (id)img_.CGImage;
+//    self.spriteData = spriteData_;
 }
 
 - (void) setContents:(id)contents_
 {
     [super setContents:contents_];
-    CGImageRef img = (__bridge CGImageRef) contents_;
-    atlasSize = CGSizeMake(CGImageGetWidth(img), CGImageGetHeight(img));
+    NSLog(@"setContents");
+//    CGImageRef img = (__bridge CGImageRef) contents_;
+//    atlasSize = CGSizeMake(CGImageGetWidth(img), CGImageGetHeight(img));
+}
+
+- (NSObject*)findFrame:(NSString*)frameName{
+    for(NSString *imageName in self.data.allKeys) {
+        NSDictionary *allFrames = self.data[imageName];
+        CAWSpriteData *d = allFrames[frameName];
+        if(d) {
+            return d;
+        }
+    }
+    return nil;
 }
 
 - (void)playAnimation:(NSString *)frameNames withRate:(float)frameRate andRepeat:(int)repeatCount
@@ -75,7 +97,7 @@
     numFrames = 0;
     for(;;)
     {
-        NSObject *fr = [spriteData objectForKey:[NSString stringWithFormat:frameNames, numFrames+1]];
+        NSObject *fr = [self findFrame:[NSString stringWithFormat:frameNames, numFrames+1]];
         if(!fr)
         {
             break;
@@ -166,7 +188,7 @@
                      forKey: kCATransactionDisableActions];
     self.position = CGPointMake(scale*(tempData.offsetX+tempData.spriteWidth/2.0), scale*(tempData.offsetY+tempData.spriteHeight/2.0));
     self.bounds = CGRectMake(tempData.offsetX*scale, tempData.offsetY*scale, tempData.spriteWidth*scale, tempData.spriteHeight*scale);
-    self.contentsRect = CGRectMake(tempData.posX/atlasSize.width, tempData.posY/atlasSize.height, tempData.spriteWidth/atlasSize.width, tempData.spriteHeight/atlasSize.height);
+//    self.contentsRect = CGRectMake(tempData.posX/atlasSize.width, tempData.posY/atlasSize.height, tempData.spriteWidth/atlasSize.width, tempData.spriteHeight/atlasSize.height);
     [CATransaction commit];
 }
 
@@ -175,7 +197,7 @@
     state = TPSPRITE_STOPPED;
 
     [self removeAllAnimations];
-    stillFrame = [spriteData objectForKey:frameName];
+//    stillFrame = [spriteData objectForKey:frameName];
     [self setNeedsDisplay];
 }
 

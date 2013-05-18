@@ -46,9 +46,9 @@ typedef enum
     CABasicAnimation *currentAnimation;
 }
 @property (nonatomic,readwrite) unsigned int frameIndex;
-@property (nonatomic, assign) CGSize atlasSize;
+//@property (nonatomic, assign) CGSize atlasSize;
 @property (nonatomic, assign) int numFrames;
-@property (nonatomic, strong) NSDictionary *spriteData;
+//@property (nonatomic, strong) NSDictionary *spriteData;
 @property (nonatomic, strong) NSMutableArray *selectedFrames;
 @property (nonatomic, strong) CALayer *subLayer;
 @property (nonatomic, strong) CAWSpriteData *stillFrame;
@@ -75,6 +75,8 @@ typedef enum
  * Stop animation
  */
 - (void)stop;
+
+- (void)setSprites:(NSDictionary*)sprites;
 
 - (void)setSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img;
 

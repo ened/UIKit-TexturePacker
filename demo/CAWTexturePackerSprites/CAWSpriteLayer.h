@@ -32,12 +32,16 @@
 
 @property (nonatomic, strong) CAWSpriteCoreLayer *animationLayer;
 
++ (id) layerWithSprites:(NSDictionary *)sprites;
+
 /**
  * Create new layer with given sprite data and image
  * @param spriteData sprite data array, load with CAWSpriteReader
  * @param img the sprite sheet image
  */
 + (id) layerWithSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img;
+
+- (id) initWithSprites:(NSDictionary*)sprites;
 
 /**
  * Initialize layer with given sprite data and image
