@@ -17,14 +17,14 @@ Pod::Spec.new do |s|
   # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
 
 
-  s.license      = 'MIT'
+  s.license      = { type: 'MIT', file: 'LICENSE' }
   # s.license      = { :type => 'MIT', :file => 'FILE_LICENSE' }
 
 
   s.author             = { "Andreas Loew" => "support@codeandweb.com" }
 
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/ened/UIKit-TexturePacker.git", :commit => "b883a8fc31fa4bdbf1bdd89cc4796de89461b468" }
+  s.source       = { :git => "https://github.com/ened/UIKit-TexturePacker.git", :tag => '1.0.0' }
 
   s.source_files  = 'demo/CAWTexturePackerSprites/' #, 'Classes/**/*.{h,m}'
 end
