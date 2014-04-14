@@ -42,6 +42,8 @@
 @property (nonatomic, assign) int spriteWidth;
 @property (nonatomic, assign) int spriteHeight;
 
++ (instancetype)data;
+
 - (void)printSpriteData;
 
 

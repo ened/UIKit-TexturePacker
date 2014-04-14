@@ -30,62 +30,68 @@
 
 @implementation CAWSpriteLayer
 
-@synthesize animationLayer;
-
 + (id) layerWithSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img
 {
-    return [[CAWSpriteLayer alloc] initWithSpriteData:spriteData andImage:img];
+    return [[[CAWSpriteLayer alloc] initWithSpriteData:spriteData andImage:img] autorelease];
 }
 
 - (id) initWithSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img;
 {
     if ( self = [super init] )
     {
-        animationLayer = [CAWSpriteCoreLayer layer];
-        [self addSublayer:animationLayer];
-        [animationLayer setSpriteData:spriteData andImage:img];
+        self.animationLayer = [CAWSpriteCoreLayer layer];
+        [self addSublayer:self.animationLayer];
+        [self.animationLayer setSpriteData:spriteData andImage:img];
     }
     return self;
 }
 
+- (void)removeFromSuperlayer {
+    [self.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+    self.sublayers = nil;
+    self.animationLayer = nil;
+
+    [super removeFromSuperlayer];
+}
+
 - (void)setSpriteData:(NSDictionary *)spriteData andImage:(UIImage*)img
 {
-    [animationLayer setSpriteData:spriteData andImage:img];
+    [self.animationLayer setSpriteData:spriteData andImage:img];
 }
 
 - (void)playAnimation:(NSString*) frameNames withRate:(float)frameRate andRepeat:(int)repeatCount
 {
-    [animationLayer playAnimation:frameNames withRate:frameRate andRepeat:repeatCount];
+    [self.animationLayer playAnimation:frameNames withRate:frameRate andRepeat:repeatCount];
 }
 
 - (void)playAnimation:(NSString*) frameNames withRate:(float)frameRate
 {
-    [animationLayer playAnimation:frameNames withRate:frameRate andRepeat:0];
+    [self.animationLayer playAnimation:frameNames withRate:frameRate andRepeat:0];
 }
 
 - (void)showFrame:(NSString*)frameName
 {
-    [animationLayer showFrame:frameName];
+    [self.animationLayer showFrame:frameName];
 }
 
 - (void)pause
 {
-    [animationLayer pause];
+    [self.animationLayer pause];
 }
 
 - (void)resume
 {
-    [animationLayer resume];
+    [self.animationLayer resume];
 }
 
 - (void)stop
 {
-    [animationLayer stop];
+    [self.animationLayer stop];
 }
 
 - (void)setShowLastFrame:(bool)show
 {
-    [animationLayer setShowLastFrame:show];
+    [self.animationLayer setShowLastFrame:show];
 }
 
 

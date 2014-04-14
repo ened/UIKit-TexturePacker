@@ -34,7 +34,7 @@
 @synthesize atlasSize;
 @synthesize numFrames;
 @synthesize showLastFrame;
-@synthesize subLayer;
+//@synthesize subLayer;
 @synthesize stillFrame;
 
 -(id)init
@@ -45,9 +45,24 @@
         state = TPSPRITE_INIT;
         stillFrame = nil;
         currentAnimation = nil;
-        [self addSublayer:subLayer];
+//        [self addSublayer:subLayer];
     }
     return self;
+}
+
+- (void)removeFromSuperlayer {
+    [self removeAllAnimations];
+
+    NSMutableDictionary *dict = (NSMutableDictionary*)self.spriteData;
+    [dict removeAllObjects];
+    
+    currentAnimation = nil;
+    self.spriteData = nil;
+    self.selectedFrames = nil;
+//    self.stillFrame = nil;
+    self.contents = nil;
+    
+    [super removeFromSuperlayer];
 }
 
 + (BOOL)needsDisplayForKey:(NSString *)key
@@ -70,7 +85,7 @@
 
 - (void)playAnimation:(NSString *)frameNames withRate:(float)frameRate andRepeat:(int)repeatCount
 {
-    NSMutableArray *frameList = [[NSMutableArray alloc] initWithCapacity:50];
+    NSMutableArray *frameList = [NSMutableArray arrayWithCapacity:50];
     
     numFrames = 0;
     for(;;)

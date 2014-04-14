@@ -55,7 +55,7 @@
 	NSDictionary* xmlDictionary = [NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:file ofType:extension]];
 
     // target dictionary containing the TPSpriteData objects
-	NSMutableDictionary* tpDict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary* tpDict = [NSMutableDictionary dictionary];
     
     // extract frames
 	NSDictionary* frames = [xmlDictionary objectForKey:@"frames"];
@@ -65,7 +65,7 @@
         NSDictionary *sprite = [frames objectForKey:name];
 
         // create the frame object
-        CAWSpriteData *temp = [[CAWSpriteData alloc] init];
+        CAWSpriteData *temp = [CAWSpriteData data];
         [temp setPosX:[[sprite objectForKey:@"x"] integerValue]];
         [temp setPosY:[[sprite objectForKey:@"y"] integerValue]];
         [temp setSpriteWidth:[[sprite objectForKey:@"w"] integerValue]];

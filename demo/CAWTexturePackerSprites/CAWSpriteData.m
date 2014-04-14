@@ -32,6 +32,10 @@
 @synthesize offsetX, offsetY;
 @synthesize spriteWidth, spriteHeight;
 
++ (instancetype)data {
+    return [[[self alloc] init] autorelease];
+}
+
 - (void)printSpriteData
 {
     NSLog(@"posX, posY: %d, %d, offX, offY: %d %d; w, h: %d %d:", posX, posY, offsetX, offsetY, spriteWidth, spriteHeight);
